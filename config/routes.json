@@ -1,0 +1,11 @@
+{
+  "": {
+    "class" : "Main",
+    "method" : "index"
+  },
+
+  "catalog": {
+    "class" : "Catalog",
+    "method" : "index"
+  }
+}
