@@ -5,7 +5,7 @@ class Main
     var $params;
     var $db;
 
-    public function __construct(Db $db, $params)
+    public function __construct(Db $db, Input $params)
     {
         $this->params = $params;
         $this->db = $db;
