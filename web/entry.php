@@ -1,9 +1,9 @@
 <?php
 
 spl_autoload_register(function ($class_name) {
-    if(is_file('../core/'.$class_name . '.php')) include '../core/'.$class_name . '.php';
-    if(is_file('../app/controllers/'.$class_name . '.php')) include '../app/controllers/'.$class_name . '.php';
-    if(is_file('../src/'.$class_name . '.php')) include '../src/'.$class_name . '.php';
+    if(is_file('../core/'.$class_name . '.php')) require_once '../core/'.$class_name . '.php';
+    if(is_file('../app/controllers/'.$class_name . '.php')) require_once '../app/controllers/'.$class_name . '.php';
+    if(is_file('../src/'.$class_name . '.php')) require_once '../src/'.$class_name . '.php';
 });
 
 Templater::init('../app/templates', '../tmp/templates_cache');
@@ -17,11 +17,11 @@ Input::init();
 
 //$router = new Router('../config/routes.json');
 
-$memcache = new Memcache;
-$memcache->connect('localhost', 11211);
-echo $memcache->getVersion();
+Cache::init();
 
-$m = new Memcached();
-$m->addServer('localhost', 11211);
 
-print_r($m->getVersion());
+if(!Cache::get('test2')){
+    Cache::set('test2',date('d.m.Y h:i:s'));
+}
+
+echo Cache::get('test2');
