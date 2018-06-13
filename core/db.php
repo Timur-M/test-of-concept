@@ -2,38 +2,50 @@
 
 class Db
 {
-    var $db;
+    protected static $dbh;
 
-    public function __construct(Settings $settings) {
-        $this->db = new PDO("mysql:host=".$settings->config['db_host'].";dbname=".$settings->config['db_name'],$settings->config['db_user'],$settings->config['db_password']);
+    private function __construct() {
+        self::$dbh = new PDO("mysql:host=".Settings::get('db_host').";dbname=".Settings::get('db_name'),Settings::get('db_user'),Settings::get('db_password'));
     }
 
-    public function select_all($sql,$params=array()) {
-        $stmt = $this->db->prepare($sql);
+    public static function init() {
+        if (self::$dbh === null) {
+            new self;
+        }
+    }
+
+    public static function select($sql,$params=array()) {
+        $stmt = self::$dbh->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function select_all_to_objects($sql,$params=array(),$class_name) {
-        $stmt = $this->db->prepare($sql);
+    public static function select_obj($sql,$params=array()) {
+        $stmt = self::$dbh->prepare($sql);
         $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_CLASS,$class_name);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function select_one($sql,$params=array()) {
-        $stmt = $this->db->prepare($sql);
+    public static function get($sql,$params=array()) {
+        $stmt = self::$dbh->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function insert($sql,$params) {
-        $stmt = $this->db->prepare($sql);
+    public static function get_obj($sql,$params=array()) {
+        $stmt = self::$dbh->prepare($sql);
         $stmt->execute($params);
-        return $this->db->lastInsertId();
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function update($sql,$params) {
-        $stmt = $this->db->prepare($sql);
+    public static function insert($sql,$params) {
+        $stmt = self::$dbh->prepare($sql);
+        $stmt->execute($params);
+        return self::$dbh->lastInsertId();
+    }
+
+    public static function update($sql,$params) {
+        $stmt = self::$dbh->prepare($sql);
         $stmt->execute($params);
     }
 }

@@ -3,17 +3,25 @@
 spl_autoload_register(function ($class_name) {
     if(is_file('../core/'.$class_name . '.php')) include '../core/'.$class_name . '.php';
     if(is_file('../app/controllers/'.$class_name . '.php')) include '../app/controllers/'.$class_name . '.php';
+    if(is_file('../src/'.$class_name . '.php')) include '../src/'.$class_name . '.php';
 });
 
-include '../src/Fenom.php';
-Fenom::registerAutoload();
-$fenom = Fenom::factory('../app/templates', '../tmp/templates_cache',Fenom::AUTO_RELOAD);
+Templater::init('../app/templates', '../tmp/templates_cache');
 
-$settings = new Settings('../config/config.json');
+Settings::init('../config/config.json');
 
-$db = new Db($settings);
+Db::init();
 
-$input = new Input();
+Input::init();
 
 
-$router = new Router($db, $input, $fenom, '../config/routes.json');
+//$router = new Router('../config/routes.json');
+
+$memcache = new Memcache;
+$memcache->connect('localhost', 11211);
+echo $memcache->getVersion();
+
+$m = new Memcached();
+$m->addServer('localhost', 11211);
+
+print_r($m->getVersion());
