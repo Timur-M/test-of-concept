@@ -1,11 +1,18 @@
 {
   "": {
-    "class" : "Main",
-    "method" : "index"
+    "class": "Main",
+    "method": "index"
   },
-
   "catalog": {
-    "class" : "Catalog",
-    "method" : "index"
+    "class": "Catalog",
+    "method": "index"
+  },
+  "item": {
+    "class": "Item",
+    "method": "index"
+  },
+  "undefined_route": {
+    "class": "Undefined",
+    "method": "index"
   }
 }

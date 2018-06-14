@@ -1,6 +1,8 @@
 {
   "db_host": "localhost",
-  "db_name": "bizon",
-  "db_user": "bizon",
-  "db_password": "bizon"
+  "db_name": "test_project",
+  "db_user": "test_project_user",
+  "db_password": "test_project_user",
+  "templates_folder": "../app/templates",
+  "templates_cache_folder": "../tmp/templates_cache"
 }

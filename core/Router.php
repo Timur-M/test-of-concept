@@ -8,13 +8,19 @@ class Router
     {
         $routes = json_decode(file_get_contents($routes_file),true);
 
-        $route = $routes[Input::$path_segments[0]];
+        if(isset($routes[Input::$path_segments[0]])) {
+            $key = Input::$path_segments[0];
+        } else {
+            $key = 'undefined_route';
+        }
+            $route = $routes[$key];
 
-        $class_name = $route['class'];
-        $method = $route['method'];
+            $class_name = $route['class'];
+            $method = $route['method'];
 
-        $class = new $class_name();
+            $class = new $class_name();
 
-        $class->$method();
+            $class->$method();
+
     }
 }
