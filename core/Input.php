@@ -2,6 +2,7 @@
 
 class Input
 {
+    static $protocol;
     static $post = [];
     static $get = [];
     static $url;
@@ -27,6 +28,8 @@ class Input
         if (isset($exploded_uri[1])) self::$uri_query = $exploded_uri[1];
 
         self::$path_segments = explode("/",ltrim($exploded_uri[0],"/"));
+
+        self::$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     }
 
     public static function init() {
