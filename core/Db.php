@@ -1,5 +1,9 @@
 <?php
 
+namespace Core;
+
+use \PDO as PDO;
+
 class Db
 {
     protected static $dbh;

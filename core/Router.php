@@ -1,5 +1,11 @@
 <?php
 
+namespace Core;
+
+use Controllers;
+
+
+
 class Router
 {
 
@@ -15,9 +21,11 @@ class Router
         }
             $route = $routes[$key];
 
-            $class_name = $route['class'];
+            $class_name = "Controllers\\".$route['class'];
 
             $method = $route['method']; //default method from config
+
+            $z = new Controllers\Catalog();
 
             $class = new $class_name();
 

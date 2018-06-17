@@ -1,21 +1,26 @@
 <?php
 
+require_once '../core/Db.php';
+require_once '../core/Input.php';
+require_once '../core/Router.php';
+require_once '../core/Settings.php';
+require_once '../core/Templater.php';
+require_once '../core/Cache.php';
+
+Core\Input::init();
+
+Core\Settings::init('../config/config.json');
+
+Core\Db::init();
+
+Core\Templater::init(Core\Settings::get('templates_folder'), Core\Settings::get('templates_cache_folder'));
+
 spl_autoload_register(function ($class_name) {
-    if(is_file('../core/'.$class_name . '.php')) require_once '../core/'.$class_name . '.php';
-    if(is_file('../app/controllers/'.$class_name . '.php')) require_once '../app/controllers/'.$class_name . '.php';
-    if(is_file('../src/'.$class_name . '.php')) require_once '../src/'.$class_name . '.php';
+    $file = '../app/' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class_name) . '.php';
+    if(is_file($file)) require_once $file;
 });
 
-Settings::init('../config/config.json');
-
-Templater::init(Settings::get('templates_folder'), Settings::get('templates_cache_folder'));
-
-Db::init();
-
-Input::init();
-
-
-$router = new Router('../config/routes.json');
+$router = new Core\Router('../config/routes.json');
 
 //Cache::init();
 //

@@ -1,12 +1,15 @@
 <?php
 
+namespace Core;
+
 class Templater
 {
     protected static $template_engine;
 
     private function __construct($templates_folder,$cache_folder) {
-        Fenom::registerAutoload();
-        self::$template_engine = Fenom::factory($templates_folder, $cache_folder,Fenom::AUTO_RELOAD);
+        require_once '../src/Fenom.php';
+        \Fenom::registerAutoload('../src');
+        self::$template_engine = \Fenom::factory($templates_folder, $cache_folder,\Fenom::AUTO_RELOAD);
     }
 
     public static function init($templates_folder,$cache_folder) {

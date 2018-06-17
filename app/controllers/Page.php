@@ -1,5 +1,10 @@
 <?php
 
+namespace Controllers;
+
+use Core\Db;
+use Core\Templater;
+
 class Page
 {
     var $slug;

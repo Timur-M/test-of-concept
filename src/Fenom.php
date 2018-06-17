@@ -982,7 +982,8 @@ class Fenom
      * @param callable $callback template's data handler
      * @param array $vars
      * @param float $chunk amount of bytes of chunk
-     * @return array
+     * @return \Fenom\Render
+     * @throws CompileException
      */
     public function pipe($template, $callback, array $vars = array(), $chunk = 1e6)
     {
@@ -998,6 +999,8 @@ class Fenom
      * @param string $template template name with schema
      * @param int $options additional options and flags
      * @return Fenom\Template
+     * @return Fenom\Render
+     * @throws CompileException
      */
     public function getTemplate($template, $options = 0)
     {
@@ -1049,6 +1052,7 @@ class Fenom
      * @param string $template
      * @param int $opts
      * @return Fenom\Render
+     * @throws CompileException
      */
     protected function _load($template, $opts)
     {
@@ -1192,6 +1196,7 @@ class Fenom
         if (!$dir) {
             $dir = __DIR__;
         }
+
         return spl_autoload_register(
             function ($classname) use ($dir) {
                 $file = $dir . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php';

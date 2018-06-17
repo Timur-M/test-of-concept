@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Cache
 {
     protected static $cache;

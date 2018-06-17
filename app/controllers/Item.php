@@ -1,5 +1,11 @@
 <?php
 
+namespace Controllers;
+
+use Core\Input;
+use Core\Templater;
+use Core\Db;
+
 class Item
 {
     var $slug;
